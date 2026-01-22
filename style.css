@@ -137,15 +137,49 @@ body {
     pointer-events: auto;
 }
 
-/* Fixed Left Sidebar */
+/* Right Sidebar */
+/* Sidebar Positioning */
 .sidebar {
     width: var(--sidebar-width);
     background: var(--card);
-    border-right: 1px solid #333;
+    border-left: 1px solid #333; /* Border now on the left */
     padding: 30px 20px;
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
     overflow-y: auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 800;
+}
+
+/* When collapsed, slide it out to the right */
+.sidebar.collapsed {
+    transform: translateX(100%);
+}
+
+/* The Toggle Button - Positioned to stay visible */
+.collapse-btn {
+    position: absolute;
+    top: 20px;
+    left: -45px; /* Pulls it outside the sidebar container so it's always visible */
+    background: var(--primary);
+    color: black;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 6px 0 0 6px; /* Rounded corners on the left only */
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+}
+
+.collapse-btn:hover {
+    opacity: 0.9;
 }
 
 .sidebar-header {
@@ -153,24 +187,6 @@ body {
     margin-bottom: 30px;
     padding-bottom: 20px;
     border-bottom: 1px solid #333;
-    position: relative;
-}
-
-.expand-btn {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: none;
-    border: none;
-    color: var(--primary);
-    font-size: 24px;
-    cursor: pointer;
-    padding: 5px;
-    transition: transform 0.3s;
-}
-
-.expand-btn:hover {
-    transform: scale(1.2);
 }
 
 .sidebar-header h1 {
@@ -201,7 +217,30 @@ body {
     font-size: 14px;
 }
 
-input {
+.radio-group {
+    display: flex;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: normal;
+    margin-bottom: 0;
+}
+
+.radio-label input[type="radio"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+    accent-color: var(--primary);
+}
+
+input[type="number"] {
     padding: 12px;
     border-radius: 8px;
     border: 1px solid #333;
@@ -212,7 +251,7 @@ input {
     font-size: 14px;
 }
 
-input:focus {
+input[type="number"]:focus {
     outline: none;
     border-color: var(--primary);
 }
@@ -264,10 +303,84 @@ input:focus {
     overflow-y: auto;
     padding: 30px 40px;
     padding-top: 80px;
+    transition: width 0.3s ease;
+    width: calc(100% - var(--sidebar-width));
+}
+
+.sidebar.collapsed ~ .main-content {
+    width: 100%;
 }
 
 #matrix-section {
     width: 100%;
+}
+
+.progress-header {
+    background: var(--bg);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #333;
+}
+
+.progress-header h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.progress-display {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+}
+
+.progress-label {
+    font-size: 12px;
+    color: #aaa;
+    font-weight: 500;
+}
+
+.progress-value {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #333;
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid #444;
+    margin: 8px 0 6px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary), #00ff88);
+    width: 0%;
+    transition: width 0.3s ease;
+    border-radius: 4px;
+}
+
+.progress-percentage {
+    text-align: center;
+    font-size: 11px;
+    color: #aaa;
+}
+
+#progress-percent {
+    color: var(--primary);
+    font-weight: bold;
+    font-size: 12px;
 }
 
 #matrix-section h3 {
@@ -290,25 +403,141 @@ input:focus {
 .box {
     background: var(--card);
     border: 1px solid #333;
-    padding: 25px 10px;
+    padding: 20px 10px;
     border-radius: 8px;
     cursor: pointer;
     transition: 0.3s;
     text-align: center;
     font-weight: bold;
-    min-height: 80px;
+    min-height: 100px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+}
+
+.box-amount {
+    font-size: 18px;
+    display: block;
+}
+
+.box-number {
+    font-size: 12px;
+    color: #aaa;
 }
 
 .box:hover {
     border-color: var(--primary);
+    transform: translateY(-2px);
 }
 
 .box.checked {
     background: var(--primary);
     color: black;
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5);
+}
+
+.box.checked .box-number {
+    color: black;
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: var(--card);
+    padding: 40px 30px;
+    border-radius: 12px;
+    text-align: center;
+    max-width: 500px;
+    border: 2px solid var(--primary);
+    animation: scaleIn 0.5s ease-out;
+}
+
+.modal-content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: var(--primary);
+}
+
+.modal-content p {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--text);
+}
+
+.modal-goal-text {
+    font-weight: bold;
+    font-size: 24px !important;
+    color: var(--primary) !important;
+}
+
+.modal-btn {
+    background-color: var(--primary);
+    color: black;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+.modal-btn:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+}
+
+/* Confetti Animation */
+@keyframes fall {
+    0% {
+        opacity: 1;
+        transform: translateY(0) rotateZ(0deg);
+    }
+    to {
+        transform: translateY(100vh) rotateZ(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.confetti {
+    position: fixed;
+    top: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    pointer-events: none;
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.8);
+    z-index: 1999;
 }
 
 .hidden {
