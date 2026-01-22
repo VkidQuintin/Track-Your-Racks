@@ -25,9 +25,37 @@
                     <li><a href="#help">Help</a></li>
                 </ul>
             </nav>
+            
+            <!-- Main Content Area (Scrollable Matrix) -->
+            <main class="main-content">
+                <section id="matrix-section" class="hidden">
+                    <div class="progress-header">
+                        <h3>Your Saving Challenge</h3>
+                        <div class="progress-display">
+                            <div class="progress-info">
+                                <span class="progress-label">Saved:</span>
+                                <span id="saved-amount" class="progress-value">R0.00</span>
+                            </div>
+                            <div class="progress-info">
+                                <span class="progress-label">Goal:</span>
+                                <span id="goal-amount" class="progress-value">R0.00</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div id="progress-bar" class="progress-bar"></div>
+                            </div>
+                            <div class="progress-percentage">
+                                <span id="progress-percent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="recommendation-text"></p>
+                    <div id="grid-container" class="matrix-grid"></div>
+                </section>
+            </main>
 
             <!-- Fixed Left Sidebar -->
             <aside class="sidebar">
+                <button class="collapse-btn" id="collapse-btn" title="Collapse sidebar">‹</button>
                 <header class="sidebar-header">
                     <h1>Track Your <span class="highlight">Racks</span></h1>
                     <p>Small savings, big moves.</p>
@@ -35,15 +63,39 @@
 
                 <section id="setup-section" class="sidebar-content">
                     <div class="input-group">
-                        <label for="monthly-income">Monthly Earnings (R):</label>
-                        <input type="number" id="monthly-income" placeholder="e.g. 15000" />
+                        <label>Payment Frequency:</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="payment-frequency" value="weekly" id="frequency-weekly" />
+                                Weekly
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="payment-frequency" value="monthly" id="frequency-monthly" checked />
+                                Monthly
+                            </label>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label for="earnings-amount">Earnings (R):</label>
+                        <input type="number" id="earnings-amount" placeholder="e.g. 15000" min="100" />
+                        <small id="earnings-note" style="color: #aaa; margin-top: 5px; display: block; font-size: 11px;"></small>
+                    </div>
+                    <div class="input-group">
+                        <label for="savings-goal">Savings Goal (R):</label>
+                        <input type="number" id="savings-goal" placeholder="e.g. 1500" min="100" />
+                        <small id="suggested-goal" style="color: #aaa; margin-top: 5px; display: block;"></small>
+                    </div>
+                    <div class="input-group">
+                        <label for="goal-period">Goal Period (Days) <span style="color: #aaa; font-weight: normal;">(Optional)</span>:</label>
+                        <input type="number" id="goal-period" placeholder="e.g. 30" min="7" />
+                        <small id="suggested-period" style="color: #aaa; margin-top: 5px; display: block;"></small>
                     </div>
                     <button id="generate-btn">Generate My Matrix</button>
                 </section>
 
                 <!-- Tips and Suggestions Section -->
                 <section id="tips-section" class="tips-container hidden">
-                    <h4>Your Tip</h4>
+                    <h4>Tip</h4>
                     <p id="tips-text">Your personalized savings tip will appear here.</p>
                 </section>
 
@@ -53,17 +105,19 @@
                 </section>
             </aside>
 
-            <!-- Main Content Area (Scrollable Matrix) -->
-            <main class="main-content">
-                <section id="matrix-section" class="hidden">
-                    <h3>Your Saving Challenge</h3>
-                    <p id="recommendation-text"></p>
-                    <div id="grid-container" class="matrix-grid"></div>
-                </section>
-            </main>
-
             <!-- Overlay for menu -->
             <div class="menu-overlay" id="menu-overlay"></div>
+
+            <!-- Congratulations Modal -->
+            <div id="congrats-modal" class="modal hidden">
+                <div class="modal-content">
+                    <h2>🎉 Congratulations! 🎉</h2>
+                    <p>You've reached your goal!</p>
+                    <p class="modal-goal-text"></p>
+                    <p style="margin-top: 20px; font-size: 16px;">Spend wisely and don't forget to save again</p>
+                    <button id="modal-close-btn" class="modal-btn">Celebrate More</button>
+                </div>
+            </div>
         </div>
 
         <script src="main.js" defer></script>
