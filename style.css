@@ -1,0 +1,363 @@
+:root {
+    --primary: #00ff88; /* Neon green for the "Racks" */
+    --bg: #121212;
+    --card: #1e1e1e;
+    --text: #ffffff;
+    --sidebar-width: 350px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+}
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    background: var(--primary);
+    color: black;
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.hamburger-btn span {
+    width: 25px;
+    height: 3px;
+    background: black;
+    border-radius: 2px;
+}
+
+.hamburger-btn:hover {
+    opacity: 0.9;
+}
+
+/* Collapsible Menu Pane */
+.menu-pane {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    background: var(--card);
+    border-right: 1px solid #333;
+    padding: 20px;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.menu-pane.open {
+    transform: translateX(0);
+}
+
+.menu-pane .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.menu-pane h3 {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+
+.menu-pane ul {
+    list-style: none;
+}
+
+.menu-pane li {
+    margin: 15px 0;
+}
+
+.menu-pane a {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.menu-pane a:hover {
+    color: var(--primary);
+}
+
+/* Menu Overlay */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Fixed Left Sidebar */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--card);
+    border-right: 1px solid #333;
+    padding: 30px 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333;
+    position: relative;
+}
+
+.expand-btn {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 5px;
+    transition: transform 0.3s;
+}
+
+.expand-btn:hover {
+    transform: scale(1.2);
+}
+
+.sidebar-header h1 {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.sidebar-header p {
+    font-size: 13px;
+    color: #aaa;
+}
+
+.highlight {
+    color: var(--primary);
+}
+
+.sidebar-content {
+    margin-bottom: 30px;
+}
+
+.input-group {
+    margin: 20px 0;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+input {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    width: 100%;
+    background: var(--bg);
+    color: var(--text);
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+#generate-btn {
+    background-color: var(--primary);
+    color: black;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 15px;
+    transition: 0.2s;
+}
+
+#generate-btn:hover {
+    opacity: 0.9;
+}
+
+/* Tips and Suggestions */
+.tips-container,
+.suggestion-container {
+    background: var(--bg);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #333;
+}
+
+.tips-container h4,
+.suggestion-container h4 {
+    font-size: 14px;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.tips-container p,
+.suggestion-container p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+/* Main Content Area */
+.main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px 40px;
+    padding-top: 80px;
+}
+
+#matrix-section {
+    width: 100%;
+}
+
+#matrix-section h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+#recommendation-text {
+    color: #aaa;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 15px;
+}
+
+.box {
+    background: var(--card);
+    border: 1px solid #333;
+    padding: 25px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    font-weight: bold;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.box:hover {
+    border-color: var(--primary);
+}
+
+.box.checked {
+    background: var(--primary);
+    color: black;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    :root {
+        --sidebar-width: 280px;
+    }
+
+    .main-content {
+        padding: 25px 20px;
+        padding-top: 70px;
+    }
+
+    .matrix-grid {
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        z-index: 900;
+        border-right: 1px solid #333;
+        padding-top: 80px;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        width: 100%;
+        padding: 25px 15px;
+        padding-top: 70px;
+    }
+
+    .matrix-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+}
