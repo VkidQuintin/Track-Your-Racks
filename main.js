@@ -13,20 +13,25 @@ collapseBtn.addEventListener('click', () => {
     collapseBtn.innerText = sidebar.classList.contains('collapsed') ? '›' : '‹';
 });
 
-hamburgerBtn.addEventListener('click', () => {
+// Function to open menu
+function openMenu() {
     menuPane.classList.add('open');
     menuOverlay.classList.add('active');
-});
+    hamburgerBtn.classList.add('hidden');
+}
 
-closeMenuBtn.addEventListener('click', () => {
+// Function to close menu
+function closeMenu() {
     menuPane.classList.remove('open');
     menuOverlay.classList.remove('active');
-});
+    hamburgerBtn.classList.remove('hidden');
+}
 
-menuOverlay.addEventListener('click', () => {
-    menuPane.classList.remove('open');
-    menuOverlay.classList.remove('active');
-});
+hamburgerBtn.addEventListener('click', openMenu);
+
+closeMenuBtn.addEventListener('click', closeMenu);
+
+menuOverlay.addEventListener('click', closeMenu);
 
 // Mobile Responsive Sidebar Toggle
 function toggleSidebarOnMobile() {
