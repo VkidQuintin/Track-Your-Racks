@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Track Your Racks</title>
+        <title>Stack Your Racks</title>
         <link rel="stylesheet" href="style.css" />
     </head>
     <body>
@@ -56,53 +56,56 @@
             <!-- Fixed Left Sidebar -->
             <aside class="sidebar">
                 <button class="collapse-btn" id="collapse-btn" title="Collapse sidebar">‹</button>
-                <header class="sidebar-header">
-                    <h1>Track Your <span class="highlight">Racks</span></h1>
-                    <p>Small savings, big moves.</p>
-                </header>
+                
+                <div class="sidebar-scrollable-content">
+                    <header class="sidebar-header">
+                        <h1>Stack Your <span class="highlight">Racks</span></h1>
+                        <p>Small savings, big moves.</p>
+                    </header>
 
-                <section id="setup-section" class="sidebar-content">
-                    <div class="input-group">
-                        <label>Payment Frequency:</label>
-                        <div class="radio-group">
-                            <label class="radio-label">
-                                <input type="radio" name="payment-frequency" value="weekly" id="frequency-weekly" />
-                                Weekly
-                            </label>
-                            <label class="radio-label">
-                                <input type="radio" name="payment-frequency" value="monthly" id="frequency-monthly" checked />
-                                Monthly
-                            </label>
+                    <section id="setup-section" class="sidebar-content">
+                        <div class="input-group">
+                            <label>Payment Frequency:</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="payment-frequency" value="weekly" id="frequency-weekly" />
+                                    Weekly
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="payment-frequency" value="monthly" id="frequency-monthly" checked />
+                                    Monthly
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-group">
-                        <label for="earnings-amount">Earnings (R):</label>
-                        <input type="number" id="earnings-amount" placeholder="e.g. 15000" min="100" />
-                        <small id="earnings-note" style="color: #aaa; margin-top: 5px; display: block; font-size: 11px;"></small>
-                    </div>
-                    <div class="input-group">
-                        <label for="savings-goal">Savings Goal (R):</label>
-                        <input type="number" id="savings-goal" placeholder="e.g. 1500" min="100" />
-                        <small id="suggested-goal" style="color: #aaa; margin-top: 5px; display: block;"></small>
-                    </div>
-                    <div class="input-group">
-                        <label for="goal-period">Goal Period (Days) <span style="color: #aaa; font-weight: normal;">(Optional)</span>:</label>
-                        <input type="number" id="goal-period" placeholder="e.g. 30" min="7" />
-                        <small id="suggested-period" style="color: #aaa; margin-top: 5px; display: block;"></small>
-                    </div>
-                    <button id="generate-btn">Generate My Matrix</button>
-                </section>
+                        <div class="input-group">
+                            <label for="earnings-amount">Earnings (R):</label>
+                            <input type="number" id="earnings-amount" placeholder="e.g. 15000" min="100" />
+                            <small id="earnings-note" style="color: #aaa; margin-top: 5px; display: block; font-size: 11px;"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="savings-goal">Savings Goal (R):</label>
+                            <input type="number" id="savings-goal" placeholder="e.g. 1500" min="100" />
+                            <small id="suggested-goal" style="color: #aaa; margin-top: 5px; display: block;"></small>
+                        </div>
+                        <div class="input-group">
+                            <label for="goal-period">Goal Period (Days) <span style="color: #aaa; font-weight: normal;">(Optional)</span>:</label>
+                            <input type="number" id="goal-period" placeholder="e.g. 30" min="7" />
+                            <small id="suggested-period" style="color: #aaa; margin-top: 5px; display: block;"></small>
+                        </div>
+                        <button id="generate-btn">Generate My Matrix</button>
+                    </section>
 
-                <!-- Tips and Suggestions Section -->
-                <section id="tips-section" class="tips-container hidden">
-                    <h4>Tip</h4>
-                    <p id="tips-text">Your personalized savings tip will appear here.</p>
-                </section>
+                    <!-- Tips and Suggestions Section -->
+                    <section id="tips-section" class="tips-container hidden">
+                        <h4>Tip</h4>
+                        <p id="tips-text">Your personalized savings tip will appear here.</p>
+                    </section>
 
-                <section id="suggestion-section" class="suggestion-container hidden">
-                    <h4>Suggestion</h4>
-                    <p id="suggestion-text">Your personalized suggestion will appear here.</p>
-                </section>
+                    <section id="suggestion-section" class="suggestion-container hidden">
+                        <h4>Suggestion</h4>
+                        <p id="suggestion-text">Your personalized suggestion will appear here.</p>
+                    </section>
+                </div>
             </aside>
 
             <!-- Overlay for menu -->
