@@ -80,9 +80,8 @@ document.getElementById('earnings-amount').addEventListener('change', updateEarn
 document.getElementById('savings-goal').addEventListener('change', (e) => {
     const goal = parseFloat(e.target.value);
     if (goal > 0) {
-        const suggestedPeriod = 30;
-        document.getElementById('suggested-period').innerText = `Suggested: ${suggestedPeriod} days (or leave blank)`;
-        document.getElementById('goal-period').placeholder = `e.g. ${suggestedPeriod}`;
+        document.getElementById('suggested-period').innerText = 'Suggested: 1 month (or leave blank)';
+        document.getElementById('goal-duration').placeholder = 'e.g. 1';
     }
 });
 
@@ -139,8 +138,11 @@ document.getElementById('generate-btn').addEventListener('click', () => {
     const frequency = document.querySelector('input[name="payment-frequency"]:checked').value;
     const earnings = parseFloat(document.getElementById('earnings-amount').value);
     const savingsGoal = parseFloat(document.getElementById('savings-goal').value);
-    const goalPeriodInput = document.getElementById('goal-period').value;
-    const goalPeriod = goalPeriodInput ? parseInt(goalPeriodInput) : null;
+    const durationValue = parseInt(document.getElementById('goal-duration').value);
+    const durationUnit = document.getElementById('duration-unit').value;
+    const daysPerUnit = { days: 1, weeks: 7, months: 30, years: 365 };
+    // Convert the chosen duration into days (null if left blank)
+    const goalPeriod = durationValue > 0 ? durationValue * daysPerUnit[durationUnit] : null;
     
     // Validation
     if (!earnings || earnings <= 0 || earnings < 100) {
@@ -245,7 +247,7 @@ document.getElementById('generate-btn').addEventListener('click', () => {
         let boxAmount;
         if (i === numBoxes) {
             // Last box: ensure it adds up exactly to the goal
-            boxAmount = finalGoal - cumulativeSavings;
+            boxAmount = Math.round((finalGoal - cumulativeSavings) * 100) / 100;
         } else {
             // Other boxes: round up to ensure we don't undershoot
             boxAmount = Math.ceil(amountPerBox * 100) / 100; // Round up to 2 decimals
@@ -274,7 +276,7 @@ document.getElementById('generate-btn').addEventListener('click', () => {
             updateProgressDisplay();
 
             // Check if goal is reached (when total savings >= goal)
-            if (!wasChecked && totalSavings >= finalGoal) {
+            if (!wasChecked && totalSavings >= finalGoal - 0.005) {
                 setTimeout(() => {
                     showCongratsModal(totalSavings);
                 }, 300);
